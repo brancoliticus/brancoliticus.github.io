@@ -1,0 +1,75 @@
+<!--
+
+    Copyright 2024 Cristian Achim
+    All rights reserved
+    brancoliticus at gmail dot com
+
+-->
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <meta charset="utf-8" />
+
+    <title>
+Dangerous Commands in the Posix Command Line
+    </title>
+
+    <style>
+        header {
+            text-align: left;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <header>
+    <b>
+Dangerous Commands in the Posix Command Line
+    </b>
+    </br></br>
+    </header>
+
+    <a href="index.html">
+<|
+Back to index
+    </a>
+    </br></br>
+
+    <b>
+Avoid dangers in the Linux command line
+    </b>
+    </br></br>
+
+The command 'rm' is dangerous and its recursive force version is even more so.
+An alternative is to use the trash-cli package that copies files to a trashcan
+folder. That way complete deletion happens in two steps and mistakes might be
+caught. If trash-cli is not available for your system you might simply use a
+shell script to copy files and folders to a dedicated trash folder with a shell
+script.
+
+TODO find a shell script replacement for trash-cli
+
+TODO set -o noclobber for > shell redirect to file
+
+package trash-cli is available in many Linux distributions as a replacement
+for the 'rm' command that copies the files meant for deleation to a special
+folder called trashcan. It's behaviour is like that of copying the folder<br>
+https://unix.stackexchange.com/questions/452865
+https://www.reddit.com/r/linuxquestions/comments/tjsc0u/absolute_most_dangerous_command_in_linux/
+https://www.quora.com/What-are-the-most-devastating-and-dangerous-commands-for-Linux-OS
+https://github.com/rcaloras/bash-preexec
+https://github.com/nushell/nushell/pull/8207
+    this should be the way to access user's command
+    when running nushell preexec hooks
+    use this to start parsing user input
+    and deny access to dangerous commands
+'mv -i' 'cp -i' 'rm -i'
+
+</body>
+

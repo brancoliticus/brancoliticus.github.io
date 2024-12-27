@@ -1,0 +1,200 @@
+<!--
+
+    Copyright 2024 Cristian Achim
+    All rights reserved
+    brancoliticus at gmail dot com
+
+-->
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <meta charset="utf-8" />
+
+    <title>
+Unelte pentru linia de comandă posix și nushell
+    </title>
+
+    <style>
+        header {
+            text-align: left;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <header>
+    <b>
+Unelte pentru linia de comandă posix și nushell
+    </b>
+    </br></br>
+    </header>
+
+    <a href="index.html">
+<|
+Înapoi la index
+    </a>
+    </br></br>
+
+    <b>
+grep găsește unul din două modele
+    </b>
+
+    <pre>
+grep -e model1 -e model2
+    </pre>
+
+    <b>
+împarte și reunirea fișierelor mari
+    </b>
+
+    <pre>
+#împarte în fișiere de 3GiB și apoi reunește
+split -b 3G fisier_de_impartit.iso fisier_de_impartit.iso
+cat fisier_de_impartit.iso* > fisier_de_impartit.iso
+    </pre>
+
+    <b>
+python calculează zile
+    </b>
+    
+    <pre>
+>>> from datetime import date
+>>> a=date(2021,8,26)
+>>> b=date(2021,9,15)
+>>> c=date(2021,11,15)
+>>> d=date(2022,3,3)
+>>> (a-b).days
+-20
+>>> (b-a).days
+20
+>>> (d-c).days
+108
+>>> 20+108
+128
+>>> #calcul dată finală cu 119 zile mai mare
+>>> from datetime import date, timedelta
+>>> end_date=date.today()+timedelta(days=119)
+    </pre>
+
+    <b>
+nushell calculează zile
+    </b>
+
+    <pre>
+("28-sep-2024" | into daytime) + (119day)
+(date now) + (2day)
+    </pre>
+
+    <b>
+cronometru cu bip în linia de comandă nushell și posix
+    </b>
+
+    <pre>
+(
+    date now | print;
+    printf "MESAJUL_CRONOMETRULUI\n";
+    (date now) + (30min) | print;
+    sleep 1hr;
+    printf "BIPAIRE\n";
+    for $it in 0..999999 {
+        sleep 1sec; printf "\a"
+    }
+)
+printf "\a"
+#dacă comanda 'printf "\a"' de mai sus nu generează un bipăit
+#gnome-terminal --sh -c 'printf "\a"'
+#dacă gnome-terminal e instalat va ocoli bug-ul
+    </pre>
+
+    <b>
+grep căutare completă și recursivă de text
+    </b>
+
+    <pre>
+grep -rnw folder -e 'MODEL'
+    </pre>
+
+    <b>
+listează fișierele recursiv după dimensiune
+    </b>
+
+    <pre>
+du -ah . | grep -v "/$" | sort -rh | less
+    </pre>
+
+    <b>
+sed înlocuiește text în fișier
+    </b>
+
+    <pre>
+sed -i -- 's/foo/bar/g' cale_fisier
+    </pre>
+
+    <b>
+grep găsește fișierele cu extensia sh
+    </b>    
+
+    <pre>
+find * | grep -i '\.sh$'
+    </pre>
+
+    <b>
+sed comentează linii în fișiere shell
+    </b>
+
+    <pre>
+sed -i '2,4 s/^/#/' cale_fisier
+    </pre>
+
+    <b>
+apt căutare exactă
+    </b>
+
+    <pre>
+apt search ^golang$
+    </pre>
+
+    <b>
+inversează căutarea grep
+    </b>
+
+    <pre>
+ls -alh | grep -v regex_de_eliminat
+    </pre>
+
+    <b>
+Deschide site-uri web cu xargs și xdg-open
+    </b>
+
+    <pre>
+printf "https://www.web1.com\nhttps://www.web2.com\n" \
+    | xargs -I website xdg-open website
+    </pre>
+
+    <b>
+git opțiuni pentru ca comanda log să arate bine
+    </b>
+
+    <pre>
+git log -2 --oneline --decorate --graph --all
+    </pre>
+
+    <b>
+git elimină ultimul commit
+    </b>
+
+    <pre>
+#!!! AVERTISMENT COMANDĂ FOARTE PERICULOASĂ
+#!!! SE POT PIERDE DATE IMPORTANTE LA RULAREA ACESTEI COMENZI
+#!!! RULEAZĂ ACEASTĂ COMANDĂ DOAR DACĂ ȘTII EXACT CE FACI
+git reset --hard HEAD~1
+    </pre>
+
+</body>
+

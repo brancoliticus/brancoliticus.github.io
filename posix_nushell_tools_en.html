@@ -1,0 +1,200 @@
+<!--
+
+    Copyright 2024 Cristian Achim
+    All rights reserved
+    brancoliticus at gmail dot com
+
+-->
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <meta charset="utf-8" />
+
+    <title>
+Tools for the Posix and Nushell Command Line
+    </title>
+
+    <style>
+        header {
+            text-align: left;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <header>
+    <b>
+Tools in the posix and nushell command line
+    </b>
+    <br/><br/>
+    </header>
+
+    <a href="index.html">
+<|
+Back to index
+    </a>
+    </br></br>
+
+    <b>
+grep find one of two patterns
+    </b>
+
+    <pre>
+grep -e pattern1 -e pattern2
+    </pre>
+
+    <b>
+split and reunite large files
+    </b>
+
+    <pre>
+#split in 3GiB sized files and then reunite
+split -b 3G file_to_split.iso file_to_split.iso
+cat file_to_split.iso* > file_to_split.iso
+    </pre>
+
+    <b>
+python compute days
+    </b>
+    
+    <pre>
+>>> from datetime import date
+>>> a=date(2021,8,26)
+>>> b=date(2021,9,15)
+>>> c=date(2021,11,15)
+>>> d=date(2022,3,3)
+>>> (a-b).days
+-20
+>>> (b-a).days
+20
+>>> (d-c).days
+108
+>>> 20+108
+128
+>>> #compute final date that is 119 days later
+>>> from datetime import date, timedelta
+>>> end_date=date.today()+timedelta(days=119)
+    </pre>
+
+    <b>
+nushell compute days
+    </b>
+
+    <pre>
+("28-sep-2024" | into daytime) + (119day)
+(date now) + (2day)
+    </pre>
+
+    <b>
+beep timer in nushell and posix command line
+    </b>
+
+    <pre>
+(
+    date now | print;
+    printf "TIMER_MESSAGE\n";
+    (date now) + (30min) | print;
+    sleep 30min;
+    printf "BEEPING\n";
+    for $it in 0..999999 {
+        sleep 1sec; printf "\a"
+    }
+)
+printf "\a"
+#if the command 'printf "\a"' above does not generate a sound
+#'gnome-terminal --sh -c 'printf "\a"''
+#above sidesteps that buggy situation
+    </pre>
+
+    <b>
+grep recursive full text search
+    </b>
+
+    <pre>
+grep -rnw folder -e 'PATTERN'
+    </pre>
+
+    <b>
+list files by size recursively
+    </b>
+
+    <pre>
+du -ah . | grep -v "/$" | sort -rh | less
+    </pre>
+
+    <b>
+sed replace text in file
+    </b>
+
+    <pre>
+sed -i -- 's/foo/bar/g' file_path
+    </pre>
+
+    <b>
+grep find files with extension sh
+    </b>    
+
+    <pre>
+find * | grep -i '\.sh$'
+    </pre>
+
+    <b>
+sed comment lines in shell script
+    </b>
+
+    <pre>
+sed -i '2,4 s/^/#/' file_path
+    </pre>
+
+    <b>
+apt exact search
+    </b>
+
+    <pre>
+apt search ^golang$
+    </pre>
+
+    <b>
+invert grep search
+    </b>
+
+    <pre>
+ls -alh | grep -v regex_to_exclude
+    </pre>
+
+    <b>
+Open websites with xargs and xdg-open
+    </b>
+
+    <pre>
+printf "https://www.web1.com\nhttps://www.web2.com\n" \
+    | xargs -I website xdg-open website
+    </pre>
+
+    <b>
+git good looking log command options
+    </b>
+
+    <pre>
+git log -2 --oneline --decorate --graph --all
+    </pre>
+
+    <h3>
+git wipe latest commit
+    </h3>
+
+    <pre>
+#!!! - WARNING - VERY DANGEROUS COMMAND
+#!!! - BY RUNNING IT YOU MAY LOOSE IMPORTANT DATA
+#!!! - KNOW WHAT YOU ARE DOING BEFORE RUNNING THIS COMMAND
+git reset --hard HEAD~1
+    </pre>
+
+</body>
+
